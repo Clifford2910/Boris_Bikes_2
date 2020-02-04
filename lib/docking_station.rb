@@ -1,7 +1,7 @@
 class DockingStation
 
   attr_reader :docked_bikes
-  
+
   def release_bike
     raise "no bikes available" unless @docked_bikes
     @docked_bikes
@@ -15,10 +15,5 @@ class DockingStation
   def show_docked_bikes
     @docked_bikes
   end
-end
-
-class Bike
-  def working?
-    true
-  end
+  
 end

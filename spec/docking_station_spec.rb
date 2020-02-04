@@ -2,9 +2,9 @@ require 'docking_station.rb'
 
 describe DockingStation do
 
-  it { is_expected.to respond_to :release_bike }
-
   describe '#release_bike' do
+    it { is_expected.to respond_to :release_bike }
+
     it 'raises an error when there are no bikes available' do
       expect { subject.release_bike }.to raise_error("no bikes available")
     end
@@ -16,14 +16,9 @@ describe DockingStation do
     end
   end
 
-  it 'checks bike works' do
-    bike = Bike.new
-    expect(bike).to be_working
-  end
-
-  it { is_expected.to respond_to(:dock).with(1).argument }
-
   describe '#dock' do
+    it { is_expected.to respond_to(:dock).with(1).argument }
+
     it 'raises an error when there are too many bikes docked' do
       bike = Bike.new
       subject.dock(bike)
@@ -38,12 +33,14 @@ describe DockingStation do
     end
   end
 
-  it { is_expected.to respond_to :show_docked_bikes }
+  describe '#show_docked_bikes' do
+    it { is_expected.to respond_to :show_docked_bikes }
 
-  it 'shows docked bikes' do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.show_docked_bikes).to eq bike
+    it 'shows docked bikes' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.show_docked_bikes).to eq bike
+    end
   end
 
 end
