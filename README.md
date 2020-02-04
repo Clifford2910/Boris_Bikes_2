@@ -1,4 +1,4 @@
-# Boris Bikes
+# Boris Bikes (Ruby)
 
 ## Index
 * [Installation](#Install)
@@ -28,14 +28,14 @@ You'll be introduced to a technique for uncovering the root-cause of bugs in you
 ## <a name="Install">Installation</a>
 * To clone the repo
 ```shell
-$ git clone https://github.com/Clifford2910/boris_bikes.git
-$ cd boris_bikes
+$ git clone https://github.com/Clifford2910/boris_bikes.rb.git
+$ cd boris_bikes.rb
 $ bundle install
 ```
 
 ## <a name="Rspec">Rspec Tests</a>
 ```shell
-$ cd boris_bikes
+$ cd boris_bikes.rb
 $ rspec
 ```
 
