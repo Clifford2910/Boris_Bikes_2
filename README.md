@@ -40,7 +40,7 @@ $ rspec
 ```
 
 ## <a name="Usage">Usage</a>
-irb
+* IRB
 ```
 TO BE INCLUDED
 ```
