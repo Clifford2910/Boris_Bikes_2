@@ -1,5 +1,4 @@
 require 'bike.rb'
-require 'docking_station.rb'
 
 describe Bike do
   describe '#report_broken' do
