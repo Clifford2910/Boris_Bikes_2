@@ -10,6 +10,7 @@ class DockingStation
   def initialize(capacity=DEFAULT_CAPACITY)
     @capacity = capacity
     @docked_bikes = []
+    @broken_bikes = []
   end
 
   def release_bike
@@ -19,7 +20,11 @@ class DockingStation
 
   def dock(bike)
     fail 'Docking station full' if full?
-    @docked_bikes << bike
+    if bike.working == false
+      @broken_bikes << bike
+    else
+      @docked_bikes << bike
+    end
   end
 
   private
@@ -29,7 +34,7 @@ class DockingStation
   end
 
   def full?
-    @docked_bikes.length >= @capacity
+    @docked_bikes.length + @broken_bikes.length >= @capacity
   end
 
 end
