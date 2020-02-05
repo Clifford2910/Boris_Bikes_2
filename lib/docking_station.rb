@@ -4,6 +4,7 @@ class DockingStation
 
   attr_accessor :capacity
   attr_reader :docked_bikes
+  attr_reader :broken_bikes
 
   DEFAULT_CAPACITY = 20
 
@@ -21,9 +22,9 @@ class DockingStation
   def dock(bike)
     fail 'Docking station full' if full?
     if bike.working == false
-      @broken_bikes << bike
+      @broken_bikes.push(bike)
     else
-      @docked_bikes << bike
+      @docked_bikes.push(bike)
     end
   end
 
