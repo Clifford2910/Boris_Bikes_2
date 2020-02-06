@@ -33,12 +33,12 @@ describe DockingStation do
 
     it 'docks a bike' do
       subject.dock(bike)
-      expect(subject.docked_bikes).to include(bike)
+      expect(subject.working_bikes).to include(bike)
     end
 
     it 'shows docked bikes' do
       subject.dock(bike)
-      expect(subject.docked_bikes).to include(bike)
+      expect(subject.working_bikes).to include(bike)
     end
 
     it 'shows docked broken bikes' do
@@ -48,16 +48,8 @@ describe DockingStation do
   end
 
   describe '#capacity' do
-    it 'defaults capacity' do
-      described_class::DEFAULT_CAPACITY.times do
-      subject.dock(bike)
-      end
-      expect{ subject.dock(bike) }.to raise_error 'Docking station full'
-    end
-
     it 'has a default capacity' do
       expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
     end
   end
-
 end
