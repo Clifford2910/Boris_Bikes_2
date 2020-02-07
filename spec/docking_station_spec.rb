@@ -27,7 +27,8 @@ describe DockingStation do
 
   describe '#dock' do
     it 'raises an error when there are too many bikes docked' do
-      subject.capacity.times { subject.dock(bike) }
+      subject.capacity = 1
+      subject.dock(bike)
       expect { subject.dock(bike) }.to raise_error 'Docking station full'
     end
 
@@ -36,12 +37,7 @@ describe DockingStation do
       expect(subject.working_bikes).to include(bike)
     end
 
-    it 'shows docked bikes' do
-      subject.dock(bike)
-      expect(subject.working_bikes).to include(bike)
-    end
-
-    it 'shows docked broken bikes' do
+    it 'docks a broken bike' do
       subject.dock(broken_bike)
       expect(subject.broken_bikes).to include(broken_bike)
     end

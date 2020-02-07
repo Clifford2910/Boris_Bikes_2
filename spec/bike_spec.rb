@@ -8,5 +8,4 @@ describe Bike do
       expect(bike.working).to eq false
     end
   end
-
 end

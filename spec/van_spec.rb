@@ -5,8 +5,8 @@ describe Van do
   let(:bike) { double :bike, working: true }
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
-  let(:station) { double :docking_station, working_bikes: [], broken_bikes: [broken_bike] }
-  let(:full_station) { double :docking_station, working_bikes: [], broken_bikes: [broken_bike, broken_bike2] }
+  let(:station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike] }
+  let(:full_station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike, broken_bike2] }
 
   describe '#collect' do
     it 'raises an error when there are no bikes available' do
@@ -18,6 +18,10 @@ describe Van do
       subject.capacity = 1
       subject.collect(full_station, broken_bike)
       expect { subject.collect(full_station, broken_bike2) }.to raise_error 'Van is full'
+    end
+
+    it 'cannot collect working bikes from DockingStation' do
+      expect { subject.collect(station, bike) }.to raise_error 'Can only collect broken bikes'
     end
 
     it 'collects broken bikes from DockingStation' do

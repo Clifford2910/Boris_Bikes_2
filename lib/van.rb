@@ -14,11 +14,15 @@ class Van
     @loaded_broken_bikes = []
   end
 
-  def collect(station, broken_bike)
+  def collect(station, bike)
     fail 'Docking station empty - no broken bikes' if station.broken_bikes.empty?
     fail 'Van is full' if van_full?
-    @loaded_broken_bikes.push(broken_bike)
-    station.broken_bikes.delete(broken_bike)
+    fail 'Can only collect broken bikes' if bike.working == true
+    @loaded_broken_bikes.push(bike)
+    station.broken_bikes.delete(bike)
+  end
+
+  def distribute(station, bike)
   end
 
   private
@@ -26,5 +30,4 @@ class Van
   def van_full?
     @loaded_working_bikes.length + @loaded_broken_bikes.length >= @capacity
   end
-
 end
