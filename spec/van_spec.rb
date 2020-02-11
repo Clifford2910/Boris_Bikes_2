@@ -10,19 +10,19 @@ describe Van do
   let(:full_station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike, broken_bike2] }
 
   describe '#collect' do
-    it 'raises an error when there are no bikes available' do
+    it 'raises an error when the DockingStation is empty' do
       subject.collect(station, broken_bike)
-      expect { subject.collect(station, broken_bike2) }.to raise_error 'Docking station empty - no broken bikes'
+      expect { subject.collect(station, broken_bike2) }.to raise_error 'DockingStation empty - no broken bikes'
     end
 
-    it 'raises an error when there are too many bikes on the van' do
+    it 'raises an error when the van is full' do
       subject.capacity = 1
       subject.collect(full_station, broken_bike)
       expect { subject.collect(full_station, broken_bike2) }.to raise_error 'Van is full'
     end
 
     it 'cannot collect working bikes from DockingStation' do
-      expect { subject.collect(station, bike) }.to raise_error 'Can only collect broken bikes'
+      expect { subject.collect(station, bike) }.to raise_error 'Can only collect broken bikes from DockingStations'
     end
 
     it 'collects broken bikes from DockingStation' do
@@ -38,7 +38,7 @@ describe Van do
 
     it 'cannot distribute broken bikes to DockingStations' do
       subject.collect(station, broken_bike)
-      expect { subject.distribute(station, broken_bike) }.to raise_error 'Can only distribute working bikes'
+      expect { subject.distribute(station, broken_bike) }.to raise_error 'Can only distribute working bikes to DockingStations'
     end
 
     # it 'distributes working bikes to DockingStation' do
