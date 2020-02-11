@@ -3,6 +3,7 @@ require 'garage.rb'
 describe Garage do
 
   let(:bike) { Bike.new }
+  let(:bike2) { Bike.new }
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
   let(:van) { double :van, loaded_working_bikes: [bike], loaded_broken_bikes: [broken_bike] }
@@ -49,6 +50,20 @@ describe Garage do
   end
 
   describe '#give' do
+    it 'raises an error when the garage is empty' do
+      bike.report_broken
+      subject.take(van, bike)
+      subject.fix(bike)
+      subject.give(van, bike)
+      expect { subject.give(van, bike2) }.to raise_error 'garage empty - no fixed bikes'
+    end
+
+    it 'cannot give broken bikes to the van' do
+      bike.report_broken
+      subject.take(van, bike)
+      expect { subject.give(van, bike) }.to raise_error 'Can only give working bikes'
+    end
+
     it 'garage should give fixed bikes to the van' do
       bike.report_broken
       subject.take(van, bike)
@@ -57,7 +72,6 @@ describe Garage do
       expect(empty_van.loaded_working_bikes).to include(bike)
     end
   end
-
 
   describe '#capacity' do
     it 'has a default capacity' do

@@ -29,6 +29,8 @@ class Garage
   end
 
   def give(van, bike)
+    fail 'Can only give working bikes' if bike.working == false
+    fail 'garage empty - no fixed bikes' if garage_empty?
     van.loaded_working_bikes.push(bike)
     @fixed_bikes.delete(bike)
   end
@@ -37,6 +39,10 @@ class Garage
 
   def garage_full?
     @fixed_bikes.length + @bikes_to_be_fixed.length >= @capacity
+  end
+
+  def garage_empty?
+    @fixed_bikes.empty?
   end
 
 end
