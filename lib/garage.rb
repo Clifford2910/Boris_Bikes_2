@@ -28,6 +28,11 @@ class Garage
     @bikes_to_be_fixed.delete(bike)
   end
 
+  def give(van, bike)
+    van.loaded_working_bikes.push(bike)
+    @fixed_bikes.delete(bike)
+  end
+
   private
 
   def garage_full?

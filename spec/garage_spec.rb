@@ -48,6 +48,16 @@ describe Garage do
     end
   end
 
+  describe '#give' do
+    it 'garage should give fixed bikes to the van' do
+      bike.report_broken
+      subject.take(van, bike)
+      subject.fix(bike)
+      subject.give(empty_van, bike)
+      expect(empty_van.loaded_working_bikes).to include(bike)
+    end
+  end
+
 
   describe '#capacity' do
     it 'has a default capacity' do
