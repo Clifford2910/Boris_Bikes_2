@@ -6,6 +6,7 @@ describe Van do
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
   let(:station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike] }
+  let(:empty_station) { double :docking_station, working_bikes: [], broken_bikes: [] }
   let(:full_station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike, broken_bike2] }
 
   describe '#collect' do
@@ -28,6 +29,23 @@ describe Van do
       subject.collect(station, broken_bike)
       expect(subject.loaded_broken_bikes).to include(broken_bike)
     end
+  end
+
+  describe '#distribute' do
+    it 'raises an error when the van is empty' do
+      expect { subject.distribute(station, bike) }.to raise_error 'Van is empty - no working bikes'
+    end
+
+    it 'cannot distribute broken bikes to DockingStations' do
+      subject.collect(station, broken_bike)
+      expect { subject.distribute(station, broken_bike) }.to raise_error 'Can only distribute working bikes'
+    end
+
+    # it 'distributes working bikes to DockingStation' do
+    #   subject.collect(station, broken_bike)
+    #   subject.distribute(empty_station, bike)
+    #   expect(empty_station.working_bikes).to include(bike)
+    # end
   end
 
   describe '#capacity' do
