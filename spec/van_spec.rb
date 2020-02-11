@@ -2,12 +2,14 @@ require 'van.rb'
 
 describe Van do
 
-  let(:bike) { double :bike, working: true }
+  let(:bike) { Bike.new }
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
+  let(:new_station) { DockingStation.new }
   let(:station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike] }
   let(:empty_station) { double :docking_station, working_bikes: [], broken_bikes: [] }
   let(:full_station) { double :docking_station, working_bikes: [bike], broken_bikes: [broken_bike, broken_bike2] }
+  let(:garage) { Garage.new }
 
   describe '#collect' do
     it 'raises an error when the DockingStation is empty' do
@@ -41,11 +43,15 @@ describe Van do
       expect { subject.distribute(station, broken_bike) }.to raise_error 'Can only distribute working bikes to DockingStations'
     end
 
-    # it 'distributes working bikes to DockingStation' do
-    #   subject.collect(station, broken_bike)
-    #   subject.distribute(empty_station, bike)
-    #   expect(empty_station.working_bikes).to include(bike)
-    # end
+    it 'distributes working bikes to DockingStation' do
+      bike.report_broken
+      subject.collect(station, bike)
+      garage.take(subject, bike)
+      garage.fix(bike)
+      garage.give(subject, bike)
+      subject.distribute(empty_station, bike)
+      expect(empty_station.working_bikes).to include(bike)
+    end
   end
 
   describe '#capacity' do
