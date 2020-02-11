@@ -2,7 +2,7 @@ require 'garage.rb'
 
 describe Garage do
 
-  let(:bike) { double :bike, working: true }
+  let(:bike) { Bike.new }
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
   let(:van) { double :van, loaded_working_bikes: [bike], loaded_broken_bikes: [broken_bike] }
@@ -30,6 +30,23 @@ describe Garage do
       expect(subject.bikes_to_be_fixed).to include(broken_bike)
     end
   end
+
+  describe '#fix' do
+    it 'garage should fix a broken bike' do
+      bike.report_broken
+      subject.take(van, bike)
+      subject.fix(bike)
+      expect(bike.working).to eq true
+    end
+
+    # it 'should put the fixed bike in the apporpriate array' do
+    #   bike.report_broken
+    #   subject.take(van, bike)
+    #   subject.fix(bike)
+    #   expect(subject.)
+    # end
+  end
+
 
   describe '#capacity' do
     it 'has a default capacity' do
