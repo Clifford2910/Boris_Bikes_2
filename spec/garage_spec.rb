@@ -39,12 +39,13 @@ describe Garage do
       expect(bike.working).to eq true
     end
 
-    # it 'should put the fixed bike in the apporpriate array' do
-    #   bike.report_broken
-    #   subject.take(van, bike)
-    #   subject.fix(bike)
-    #   expect(subject.)
-    # end
+    it 'should put the appropriate bikes in the apporpriate arrays' do
+      bike.report_broken
+      subject.take(van, bike)
+      expect(subject.bikes_to_be_fixed).to include(bike)
+      subject.fix(bike)
+      expect(subject.fixed_bikes).to include(bike)
+    end
   end
 
 
