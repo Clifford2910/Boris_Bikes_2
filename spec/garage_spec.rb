@@ -31,4 +31,10 @@ describe Garage do
     end
   end
 
+  describe '#capacity' do
+    it 'has a default capacity' do
+      expect(subject.capacity).to eq Garage::DEFAULT_CAPACITY
+    end
+  end
+
 end
