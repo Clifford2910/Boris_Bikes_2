@@ -6,20 +6,18 @@ describe Garage do
   let(:bike2) { Bike.new }
   let(:broken_bike) { double :bike, working: false }
   let(:broken_bike2) { double :bike, working: false }
-  let(:van) { double :van, loaded_working_bikes: [bike], loaded_broken_bikes: [broken_bike] }
+  let(:van) { double :van, loaded_working_bikes: [bike], loaded_broken_bikes: [broken_bike, broken_bike2] }
   let(:empty_van) { double :van, loaded_working_bikes: [], loaded_broken_bikes: [] }
-  let(:full_van) { double :van, loaded_working_bikes: [bike], loaded_broken_bikes: [broken_bike, broken_bike2] }
 
   describe '#take' do
     it 'raises an error when the van is empty' do
-      subject.take(van, broken_bike)
-      expect { subject.take(van, broken_bike2) }.to raise_error 'Van empty - no broken bikes'
+      expect { subject.take(empty_van, broken_bike) }.to raise_error 'Van empty - no broken bikes'
     end
 
     it 'raises an error when the garage is full' do
       subject.capacity = 1
-      subject.take(full_van, broken_bike)
-      expect { subject.take(full_van, broken_bike2) }.to raise_error 'Garage is full'
+      subject.take(van, broken_bike)
+      expect { subject.take(van, broken_bike2) }.to raise_error 'Garage is full'
     end
 
     it 'cannot collect working bikes from the van' do
