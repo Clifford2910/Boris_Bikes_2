@@ -40,11 +40,33 @@ $ rspec
 ```
 
 ## <a name="Usage">Usage</a>
-* IRB
+* How to use and irb output:
 ```
-TO BE INCLUDED
-```
-* Output showing what my app looks like
-```
-TO BE INCLUDED
-```
+Makerss-MacBook-Pro-8:boris_bikes.rb student$ irb
+2.6.3 :001 > require './lib/garage.rb'
+ => true
+2.6.3 :002 > bike = Bike.new
+ => #<Bike:0x00007f8b26921e00 @working=true>
+2.6.3 :003 > station = DockingStation.new
+ => #<DockingStation:0x00007f8b2691a5b0 @capacity=20, @working_bikes=[], @broken_bikes=[]>
+2.6.3 :004 > van = Van.new
+ => #<Van:0x00007f8b2796d700 @capacity=10, @loaded_working_bikes=[], @loaded_broken_bikes=[]>
+2.6.3 :005 > garage = Garage.new
+ => #<Garage:0x00007f8b2795e480 @capacity=100, @fixed_bikes=[], @bikes_to_be_fixed=[]>
+2.6.3 :006 > bike.report_broken
+ => false
+2.6.3 :007 > station.dock(bike)
+ => [#<Bike:0x00007f8b26921e00 @working=false>]
+2.6.3 :008 > van.collect(station, bike)
+ => #<Bike:0x00007f8b26921e00 @working=false>
+2.6.3 :009 > garage.take(van, bike)
+ => #<Bike:0x00007f8b26921e00 @working=false>
+2.6.3 :010 > garage.fix(bike)
+ => #<Bike:0x00007f8b26921e00 @working=true>
+2.6.3 :011 > garage.give(van, bike)
+ => #<Bike:0x00007f8b26921e00 @working=true> 
+2.6.3 :012 > van.distribute(station, bike)
+ => #<Bike:0x00007f8b26921e00 @working=true>
+2.6.3 :013 > station.release_bike
+ => #<Bike:0x00007f8b26921e00 @working=true>
+ ```
